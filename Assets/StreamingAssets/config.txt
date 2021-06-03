@@ -1,0 +1,1 @@
+{"IsCursor":true,"IsVideoRayCastTarget":true,"BackTime":5.0,"Port":8000,"IP":"127.0.0.1","TimeInterval":1.0,"ButtonPosition":[{"x":990.4375,"y":-71.875},{"x":648.3125,"y":171.0625},{"x":694.3125,"y":-544.8125},{"x":-11.5,"y":332.0625},{"x":-399.625,"y":15.8125},{"x":1231.9375,"y":-163.875}],"SwitchButtonPosition":{"x":1230.5,"y":-298.0}}
