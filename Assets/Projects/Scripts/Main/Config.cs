@@ -42,6 +42,21 @@ public class ConfigData
     /// 按钮的位置信息
     /// </summary>
     public Position SwitchButtonPosition;
+
+    /// <summary>
+    /// 提示视频的位置信息
+    /// </summary>
+    public Position TipsVideoPosition;
+
+    /// <summary>
+    /// 切换按钮的大小信息
+    /// </summary>
+    public Position SwitchButtonScale;
+
+    /// <summary>
+    /// 提示视频的大小信息
+    /// </summary>
+    public Position TipsVideoScale;
 }
 
 

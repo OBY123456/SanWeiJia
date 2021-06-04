@@ -46,46 +46,62 @@ public class UdpPanel : BasePanel
     protected override void Start()
     {
         base.Start();
-        if(Config.Instance.configData.ButtonPosition != null && Config.Instance.configData.ButtonPosition.Length > 0)
-        {
-            for (int i = 0; i < Config.Instance.configData.ButtonPosition.Length; i++)
-            {
-                Vector3 vector = new Vector3(Config.Instance.configData.ButtonPosition[i].x, Config.Instance.configData.ButtonPosition[i].y, 0);
-                buttons[i].gameObject.GetComponent<RectTransform>().anchoredPosition = vector;
-                if (Config.Instance.configData.IsVideoRayCastTarget)
-                {
-                    buttons[i].gameObject.GetComponent<CanvasGroup>().blocksRaycasts = true;
-                }
-                else
-                {
-                    buttons[i].gameObject.GetComponent<CanvasGroup>().blocksRaycasts = false;
-                }
-            }
-        }
-        else
-        {
-            Position[] position = new Position[buttons.Length];
-            Config.Instance.configData.ButtonPosition = position;
-        }
-
         if(Config.Instance)
         {
+            if (Config.Instance.configData.ButtonPosition != null && Config.Instance.configData.ButtonPosition.Length > 0)
+            {
+                for (int i = 0; i < Config.Instance.configData.ButtonPosition.Length; i++)
+                {
+                    Vector3 vector2 = new Vector3(Config.Instance.configData.ButtonPosition[i].x, Config.Instance.configData.ButtonPosition[i].y, 0);
+                    buttons[i].gameObject.GetComponent<RectTransform>().anchoredPosition = vector2;
+                    if (Config.Instance.configData.IsVideoRayCastTarget)
+                    {
+                        buttons[i].gameObject.GetComponent<CanvasGroup>().blocksRaycasts = true;
+                    }
+                    else
+                    {
+                        buttons[i].gameObject.GetComponent<CanvasGroup>().blocksRaycasts = false;
+                    }
+                }
+            }
+            else
+            {
+                Position[] position = new Position[buttons.Length];
+                Config.Instance.configData.ButtonPosition = position;
+            }
+
+            //切换按钮的位置
             Vector3 vector = new Vector3(Config.Instance.configData.SwitchButtonPosition.x, Config.Instance.configData.SwitchButtonPosition.y, 0);
             SwitchButton.gameObject.GetComponent<RectTransform>().anchoredPosition = vector;
+
+            // 切换按钮的大小
+            vector = new Vector3(Config.Instance.configData.SwitchButtonScale.x, Config.Instance.configData.SwitchButtonScale.y, 1);
+            SwitchButton.gameObject.GetComponent<RectTransform>().localScale = vector;
+
+            // 提示的位置
+            vector = new Vector3(Config.Instance.configData.TipsVideoPosition.x, Config.Instance.configData.TipsVideoPosition.y, 0);
+            Tips.gameObject.GetComponent<RectTransform>().anchoredPosition = vector;
+
+            // 提示视频的大小
+            vector = new Vector3(Config.Instance.configData.TipsVideoScale.x, Config.Instance.configData.TipsVideoScale.y, 0);
+            Tips.gameObject.GetComponent<RectTransform>().localScale = vector;
 
             if (Config.Instance.configData.IsVideoRayCastTarget)
             {
                 SwitchButton.gameObject.GetComponent<CanvasGroup>().blocksRaycasts = true;
+                Tips.blocksRaycasts = true;
             }
             else
             {
                 SwitchButton.gameObject.GetComponent<CanvasGroup>().blocksRaycasts = false;
+                Tips.blocksRaycasts = false;
             }
+
+            CountDwon = Config.Instance.configData.TimeInterval;
+
+            BackTime = Config.Instance.configData.BackTime;
         }
 
-        CountDwon = Config.Instance.configData.TimeInterval;
-
-        BackTime = Config.Instance.configData.BackTime;
 
         Tips.gameObject.GetComponent<MediaPlayer>().OpenVideoFromFile(MediaPlayer.FileLocation.RelativeToStreamingAssetsFolder, "AVProVideoSamples/拍我一下.mp4");
 
@@ -345,6 +361,9 @@ public class UdpPanel : BasePanel
 
             Config.Instance.configData.SwitchButtonPosition.x = SwitchButton.GetComponent<RectTransform>().anchoredPosition.x;
             Config.Instance.configData.SwitchButtonPosition.y = SwitchButton.GetComponent<RectTransform>().anchoredPosition.y;
+
+            Config.Instance.configData.TipsVideoPosition.x = Tips.GetComponent<RectTransform>().anchoredPosition.x;
+            Config.Instance.configData.TipsVideoPosition.y = Tips.GetComponent<RectTransform>().anchoredPosition.y;
 
             Config.Instance.SaveData();
         }
